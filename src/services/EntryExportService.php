@@ -59,20 +59,16 @@ class EntryExportService extends Component
     }
 
     /**
-     * Export entry by URL
+     * Export entry by slug
      *
-     * @param string $url The entry URL to export
+     * @param string $slug The entry slug to export
      * @param int|null $siteId Optional site ID
      * @return ExportResult The export result
      * @throws NotFoundHttpException If entry not found
      */
-    public function exportByUrl(string $url, ?int $siteId = null): ExportResult
+    public function exportBySlug(string $slug, ?int $siteId = null): ExportResult
     {
-        // Parse the URL to get the URI
-        $parsedUrl = parse_url($url);
-        $uri = isset($parsedUrl['path']) ? trim($parsedUrl['path'], '/') : $url;
-
-        $query = Entry::find()->uri($uri);
+        $query = Entry::find()->slug($slug);
 
         if ($siteId !== null) {
             $query->siteId($siteId);
@@ -81,7 +77,7 @@ class EntryExportService extends Component
         $entry = $query->one();
 
         if (!$entry) {
-            throw new NotFoundHttpException("Entry with URL '{$url}' not found.");
+            throw new NotFoundHttpException("Entry with slug '{$slug}' not found.");
         }
 
         return $this->exportEntry($entry);
