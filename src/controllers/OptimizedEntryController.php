@@ -68,21 +68,21 @@ class OptimizedEntryController extends Controller
     /**
      * Export action - exports entry data using EntryExportService
      * 
-     * Accepts either 'id' or 'url' query parameter to identify the entry.
+     * Accepts either 'id' or 'slug' query parameter to identify the entry.
      * Returns JSON array with single entry export.
      * 
      * @return Response JSON response with export data
-     * @throws BadRequestHttpException If neither id nor url provided
+     * @throws BadRequestHttpException If neither id nor slug provided
      * @throws NotFoundHttpException If entry not found
      */
     public function actionExport(): Response
     {
         $request = Craft::$app->getRequest();
         $entryId = $request->getQueryParam('id');
-        $url = $request->getQueryParam('url');
+        $slug = $request->getQueryParam('slug');
 
-        if (!$entryId && !$url) {
-            throw new BadRequestHttpException('Either entry ID or URL is required.');
+        if (!$entryId && !$slug) {
+            throw new BadRequestHttpException('Either entry ID or slug is required.');
         }
 
         $exportService = Plugin::getInstance()->entryExportService;
@@ -91,7 +91,7 @@ class OptimizedEntryController extends Controller
             if ($entryId) {
                 $exportResult = $exportService->exportById($entryId);
             } else {
-                $exportResult = $exportService->exportByUrl($url);
+                $exportResult = $exportService->exportBySlug($slug);
             }
 
             $result = [$exportResult->toArray()];
@@ -180,7 +180,7 @@ class OptimizedEntryController extends Controller
             'version' => '1.0.0',
             'status' => 'active',
             'endpoints' => [
-                'export' => 'GET /actions/_craft-entry-optimizer/optimized-entry/export?id=<entryId>',
+                'export' => 'GET /actions/_craft-entry-optimizer/optimized-entry/export?id=<entryId>&slug=<slug>',
                 'import' => 'POST /actions/_craft-entry-optimizer/optimized-entry/import',
             ],
         ]);
