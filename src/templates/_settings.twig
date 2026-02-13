@@ -1,0 +1,29 @@
+{% import '_includes/forms.twig' as forms %}
+
+<h3>Authentication</h3>
+
+{{ forms.lightswitchField({
+    label: "Require Authentication for Export"|t('_craft-entry-optimizer'),
+    instructions: "If enabled, export endpoint requires user authentication"|t('_craft-entry-optimizer'),
+    id: 'requireAuthExport',
+    name: 'requireAuthExport',
+    on: settings.requireAuthExport,
+}) }}
+
+{{ forms.lightswitchField({
+    label: "Require Authentication for Import"|t('_craft-entry-optimizer'),
+    instructions: "If enabled, import endpoint requires user authentication"|t('_craft-entry-optimizer'),
+    id: 'requireAuthImport',
+    name: 'requireAuthImport',
+    on: settings.requireAuthImport,
+}) }}
+
+{{ forms.textField({
+    label: "API Key"|t('_craft-entry-optimizer'),
+    instructions: "Optional API key for authentication. If set, both endpoints accept Authorization: Bearer {key} header"|t('_craft-entry-optimizer'),
+    id: 'apiKey',
+    name: 'apiKey',
+    value: settings.apiKey,
+    placeholder: "Leave empty to disable API key authentication"|t('_craft-entry-optimizer'),
+    type: 'password',
+}) }}
