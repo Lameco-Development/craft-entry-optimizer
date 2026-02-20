@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.2 - 2026-02-20
+
+### Fixed
+- `exportBySlug` now correctly resolves slugs containing slashes (e.g. `artikelen/artikel-1`) by querying on URI instead of slug
+
 ## 1.0.0 - 2026-02-13
 
 ### Added
