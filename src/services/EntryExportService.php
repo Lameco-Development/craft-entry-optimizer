@@ -68,7 +68,7 @@ class EntryExportService extends Component
      */
     public function exportBySlug(string $slug, ?int $siteId = null): ExportResult
     {
-        $query = Entry::find()->slug($slug);
+        $query = Entry::find()->uri($slug);
 
         if ($siteId !== null) {
             $query->siteId($siteId);
