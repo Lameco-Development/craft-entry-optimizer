@@ -3,7 +3,7 @@
   "description": "A Craft CMS 5 plugin for efficient entry data export/import with a field handler system supporting Matrix, Assets, Relations, Links, Options, and SEOmatic.",
   "type": "craft-plugin",
   "license": "MIT",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "authors": [
     {
       "name": "Laméco",
